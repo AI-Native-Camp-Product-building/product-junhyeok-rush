@@ -16,6 +16,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const TransformItemSchema = z.object({
   contentId: z.string().min(1),
+  title: z.string().min(1).max(80),
   summary: z.string().min(1),
   keyPoints: z
     .array(z.string().min(1).max(80))
@@ -32,13 +33,14 @@ const TRANSFORM_SYSTEM_PROMPT = `${PROMPT_INJECTION_GUARD}
 You are a content summarizer for a Claude Code learning platform targeting Korean-speaking developers.
 
 For each content item, produce:
-1. summary: 2-3 sentence Korean summary focused on what Claude Code users can learn or apply
-2. keyPoints: 1-4 bullet points in Korean, each under 80 characters, highlighting actionable insights
+1. title: 10-40 Korean characters. A scannable, specific headline that captures the tool, action, or concept discussed in the content itself. Derive from the actual substance — NEVER copy the input title verbatim, NEVER use author-based labels such as "Tweet by @handle", "@handle의 트윗", "X 포스트", or the author's name as the title. Keep technical terms in English (MCP, hooks, CLI, CLAUDE.md).
+2. summary: 2-3 sentence Korean summary focused on what Claude Code users can learn or apply.
+3. keyPoints: 1-4 bullet points in Korean, each under 80 characters, highlighting actionable insights.
 
 Write in a concise, technical tone. Use Korean for explanations but keep technical terms in English (e.g., MCP, hooks, CLI).
 
 Respond with JSON only matching this shape:
-{ "items": [ { "contentId": string, "summary": string, "keyPoints": string[] } ] }`;
+{ "items": [ { "contentId": string, "title": string, "summary": string, "keyPoints": string[] } ] }`;
 
 function detectSourceType(url: string): SourceType {
   if (!url) return "other";
@@ -75,7 +77,10 @@ export async function transformItems(
     tags: item.tags,
   }));
 
-  const transformMap = new Map<string, { summary: string; keyPoints: string[] }>();
+  const transformMap = new Map<
+    string,
+    { title: string; summary: string; keyPoints: string[] }
+  >();
 
   try {
     const response = await openai.chat.completions.create({
@@ -106,6 +111,7 @@ export async function transformItems(
         if (validated.success) {
           for (const item of validated.data.items) {
             transformMap.set(item.contentId, {
+              title: item.title,
               summary: item.summary,
               keyPoints: item.keyPoints,
             });
@@ -127,7 +133,7 @@ export async function transformItems(
     return {
       id: `feed-${item.id}`,
       date,
-      title: item.title,
+      title: transformed?.title ?? item.title,
       summary: transformed?.summary ?? item.summary,
       keyPoints: transformed?.keyPoints ?? [item.summary],
       sourceUrl: item.url,
