@@ -1,12 +1,56 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import type { DailyFeedItem, DailyFeedResponse } from "@/lib/daily-feed-types";
+
+interface HeroItem {
+  category: string;
+  source: string;
+  title: string;
+}
+
+const FALLBACK_ITEMS: HeroItem[] = [
+  { category: "workflow", source: "@danshipper", title: "Claude Code Agent SDK로 멀티 에이전트 파이프라인 구축하기" },
+  { category: "update", source: "@koylanai", title: "Claude Code 4.6 — 1M 컨텍스트 윈도우 실전 활용법" },
+  { category: "methodology", source: "까칠한AI", title: "CLAUDE.md 작성 전략 — 에이전트 성능을 2배로" },
+];
+
+function extractSource(item: DailyFeedItem): string {
+  if (item.sourceType === "x" && item.sourceUrl) {
+    const match = item.sourceUrl.match(/x\.com\/([^/]+)/);
+    if (match) return `@${match[1]}`;
+  }
+  return item.sourceName;
+}
 
 export function HeroSection() {
+  const [heroItems, setHeroItems] = useState<HeroItem[]>(FALLBACK_ITEMS);
+  const [itemCount, setItemCount] = useState(3);
+
   const todayKst = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Seoul",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   }).format(new Date());
+
+  useEffect(() => {
+    fetch("/api/daily-feed")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: DailyFeedResponse | null) => {
+        if (!data?.items?.length) return;
+        setItemCount(data.items.length);
+        setHeroItems(
+          data.items.slice(0, 3).map((item) => ({
+            category: item.category,
+            source: extractSource(item),
+            title: item.title,
+          }))
+        );
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="relative min-h-[80vh] flex items-center">
@@ -95,50 +139,28 @@ export function HeroSection() {
                 <span className="text-surface-300">--today --filter claude-code</span>
               </div>
 
-              {/* Results */}
+              {/* Results — live from /api/daily-feed, fallback to static */}
               <div className="space-y-3 pt-1">
                 <div className="text-surface-500 text-xs uppercase tracking-wider">
-                  3 items found · {todayKst}
+                  {itemCount} items found · {todayKst}
                 </div>
 
-                {/* Item 1 */}
-                <div className="p-3 rounded-lg border border-surface-700 bg-surface-900/50 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-400/10 text-accent-400 font-semibold">
-                      workflow
-                    </span>
-                    <span className="text-surface-500 text-[11px]">@danshipper</span>
+                {heroItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="p-3 rounded-lg border border-surface-700 bg-surface-900/50 space-y-1.5"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-400/10 text-accent-400 font-semibold">
+                        {item.category}
+                      </span>
+                      <span className="text-surface-500 text-[11px]">
+                        {item.source}
+                      </span>
+                    </div>
+                    <div className="text-surface-200 text-xs">{item.title}</div>
                   </div>
-                  <div className="text-surface-200 text-xs">
-                    Claude Code Agent SDK로 멀티 에이전트 파이프라인 구축하기
-                  </div>
-                </div>
-
-                {/* Item 2 */}
-                <div className="p-3 rounded-lg border border-surface-700 bg-surface-900/50 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-400/10 text-accent-400 font-semibold">
-                      update
-                    </span>
-                    <span className="text-surface-500 text-[11px]">@koylanai</span>
-                  </div>
-                  <div className="text-surface-200 text-xs">
-                    Claude Code 4.6 — 1M 컨텍스트 윈도우 실전 활용법
-                  </div>
-                </div>
-
-                {/* Item 3 */}
-                <div className="p-3 rounded-lg border border-surface-700 bg-surface-900/50 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-400/10 text-accent-400 font-semibold">
-                      methodology
-                    </span>
-                    <span className="text-surface-500 text-[11px]">까칠한AI</span>
-                  </div>
-                  <div className="text-surface-200 text-xs">
-                    CLAUDE.md 작성 전략 — 에이전트 성능을 2배로
-                  </div>
-                </div>
+                ))}
               </div>
 
               {/* Quiz prompt */}
