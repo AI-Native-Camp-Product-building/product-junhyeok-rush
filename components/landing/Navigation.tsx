@@ -2,61 +2,56 @@ import Link from "next/link";
 
 export function Navigation() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-surface-950/70 border-b border-white/[0.04]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dopamine-500 to-spark-500 flex items-center justify-center text-white font-bold text-sm">
-            S
-          </div>
-          <span className="font-semibold text-white/90 tracking-tight">
-            ADHD Sprint
-          </span>
-        </Link>
-        <div className="hidden md:flex items-center gap-8 text-sm text-white/50">
-          <a
-            href="#how-it-works"
-            className="hover:text-white/90 transition-colors"
-          >
-            작동 방식
-          </a>
-          <a
-            href="#features"
-            className="hover:text-white/90 transition-colors"
-          >
-            기능
-          </a>
-          <a
-            href="#curriculum"
-            className="hover:text-white/90 transition-colors"
-          >
-            커리큘럼
-          </a>
-          <a
-            href="#start"
-            className="hover:text-white/90 transition-colors"
-          >
-            설치
-          </a>
-        </div>
-        <Link
-          href="/onboarding"
-          className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dopamine-600/20 border border-dopamine-500/30 text-dopamine-300 text-sm font-medium hover:bg-dopamine-600/30 transition-all"
-        >
-          시작하기
-          <svg
-            className="w-3.5 h-3.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-          >
-            <path
+    <nav className="sticky top-0 z-50 border-b border-surface-700 bg-surface-950/80 backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-12 sm:h-14">
+          {/* Logo — Lucide Terminal icon (Camp identical) */}
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group flex-shrink-0">
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 text-accent-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </svg>
-        </Link>
+              aria-hidden="true"
+            >
+              <path d="M12 19h8" />
+              <path d="m4 17 6-6-6-6" />
+            </svg>
+            <span className="font-semibold text-xs sm:text-sm tracking-tight text-surface-50">
+              Daily Feed
+            </span>
+          </Link>
+
+          {/* Nav items */}
+          <nav className="flex items-center gap-0.5 sm:gap-1">
+            <Link
+              href="/daily-feed"
+              className="px-2.5 py-1.5 sm:px-3 text-xs sm:text-sm text-surface-400 hover:text-surface-100 transition-colors rounded-md"
+            >
+              피드
+            </Link>
+            <a
+              href="https://ainativecamp-production.up.railway.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1.5 sm:px-3 text-xs sm:text-sm text-surface-400 hover:text-surface-100 transition-colors rounded-md"
+            >
+              코스
+            </a>
+            <Link
+              href="/daily-feed"
+              className="ml-1 sm:ml-2 rounded-md px-3 py-1.5 bg-accent-400/10 text-accent-400 text-xs sm:text-sm font-medium hover:bg-accent-400/20 transition-colors"
+            >
+              시작하기
+            </Link>
+          </nav>
+        </div>
       </div>
     </nav>
   );

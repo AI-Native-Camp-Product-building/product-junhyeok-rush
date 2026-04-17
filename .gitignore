@@ -40,3 +40,5 @@ next-env.d.ts
 .blueprint/
 .omc/
 .playwright-mcp/
+_workspace/
+*.png

@@ -1,8 +1,8 @@
 // === State Types ===
 
 export interface AppState {
-  stateVersion: 1;
-  onboarding: OnboardingState;
+  stateVersion: 2;
+  feed: FeedState;
   streak: StreakState;
   badges: string[];
   totalStudyMinutes: number;
@@ -11,17 +11,30 @@ export interface AppState {
   history: HistoryEntry[];
 }
 
-export interface OnboardingState {
-  currentDay: number;
-  currentBlock: number;
-  days: Record<string, DayProgress>;
+export interface FeedState {
+  items: Record<string, FeedItemProgress>;
   completedAt: string | null;
 }
 
-export interface DayProgress {
-  status: "locked" | "in_progress" | "completed";
+export interface FeedItemProgress {
+  status: "in_progress" | "completed";
   blocks: Record<string, BlockProgress>;
   completedAt: string | null;
+}
+
+// === Feed Content Types ===
+
+export type FeedCategory = "claude-code" | "dev-knowledge" | "basics";
+
+export interface FeedItem {
+  id: string;
+  date: string;
+  category: FeedCategory;
+  title: string;
+  description: string;
+  source: string;
+  blocks: Block[];
+  status: "available" | "completed";
 }
 
 export interface BlockProgress {

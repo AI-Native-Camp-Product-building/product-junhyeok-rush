@@ -50,23 +50,22 @@ export const BADGES: BadgeDefinition[] = [
     description: "다섯 가지 토픽 정복!",
     icon: "\u{1F4DA}",
     check: (state) => {
-      const uniqueTopics = new Set(
-        state.history.map((entry) => entry.dayId)
+      const completedItems = Object.values(state.feed.items).filter(
+        (item) => item.status === "completed"
       );
-      return uniqueTopics.size >= 5;
+      return completedItems.length >= 5;
     },
   },
   {
     id: "all-core-topics",
-    name: "모든 Core 토픽 완료",
-    description: "Core 커리큘럼 마스터!",
+    name: "기초 완전 정복",
+    description: "기초 카테고리 전체 마스터!",
     icon: "\u{1F393}",
     check: (state) => {
-      const days = state.onboarding.days;
-      const completedDays = Object.values(days).filter(
-        (day) => day.status === "completed"
+      const completedItems = Object.values(state.feed.items).filter(
+        (item) => item.status === "completed"
       );
-      return completedDays.length >= 10;
+      return completedItems.length >= 30;
     },
   },
   {

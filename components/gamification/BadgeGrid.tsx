@@ -18,7 +18,7 @@ export default function BadgeGrid({
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
       <p className="text-sm font-semibold text-surface-200">
-        <span className="text-dopamine-400">{unlockedCount}</span>
+        <span className="text-accent-400">{unlockedCount}</span>
         <span className="text-surface-200/60">/9 달성</span>
       </p>
 
@@ -38,7 +38,7 @@ export default function BadgeGrid({
                   "relative w-16 h-16 rounded-2xl flex items-center justify-center text-3xl",
                   "border transition-all duration-200",
                   unlocked
-                    ? "bg-surface-800 border-dopamine-800/60 badge-shine"
+                    ? "bg-surface-800 border-accent-800/60 badge-shine"
                     : "bg-surface-800/50 border-surface-800 grayscale opacity-50",
                 ].join(" ")}
               >
@@ -66,7 +66,7 @@ export default function BadgeGrid({
 
               {/* Tooltip */}
               {tooltip === badge.id && (
-                <div className="absolute bottom-full mb-2 z-10 w-36 rounded-lg bg-surface-800 border border-dopamine-800/50 px-2.5 py-1.5 text-xs text-surface-100 text-center shadow-xl">
+                <div className="absolute bottom-full mb-2 z-10 w-36 rounded-lg bg-surface-800 border border-accent-800/50 px-2.5 py-1.5 text-xs text-surface-100 text-center shadow-xl">
                   {badge.description}
                   <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-surface-800" />
                 </div>

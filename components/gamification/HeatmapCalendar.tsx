@@ -12,10 +12,10 @@ const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
 
 function getIntensityClass(minutes: number): string {
   if (minutes === 0) return "bg-surface-800";
-  if (minutes <= 15) return "bg-dopamine-900";
-  if (minutes <= 30) return "bg-dopamine-700";
-  if (minutes <= 60) return "bg-dopamine-500";
-  return "bg-dopamine-300";
+  if (minutes <= 15) return "bg-accent-900";
+  if (minutes <= 30) return "bg-accent-700";
+  if (minutes <= 60) return "bg-accent-500";
+  return "bg-accent-300";
 }
 
 function formatDate(date: Date): string {
@@ -68,7 +68,7 @@ export default function HeatmapCalendar({
                 <div className="absolute bottom-full mb-1.5 z-10 whitespace-nowrap rounded-md bg-surface-800 border border-surface-800/80 px-2 py-1 text-xs text-surface-100 shadow-lg">
                   {dateStr}
                   {minutes > 0 && (
-                    <span className="ml-1 text-dopamine-400">{minutes}분</span>
+                    <span className="ml-1 text-accent-400">{minutes}분</span>
                   )}
                   <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-surface-800" />
                 </div>
@@ -79,7 +79,7 @@ export default function HeatmapCalendar({
                 className={[
                   "w-7 h-7 rounded-md cursor-default transition-opacity duration-150",
                   getIntensityClass(minutes),
-                  isToday ? "ring-2 ring-dopamine-400 ring-offset-1 ring-offset-surface-900" : "",
+                  isToday ? "ring-2 ring-accent-400 ring-offset-1 ring-offset-surface-900" : "",
                   isHovered ? "opacity-80" : "",
                 ].join(" ")}
                 onMouseEnter={() => setHoveredDate(dateStr)}

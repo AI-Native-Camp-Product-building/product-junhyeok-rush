@@ -3,14 +3,14 @@
 interface ProgressBarProps {
   value: number;
   label?: string;
-  color?: "dopamine" | "spark" | "streak";
+  color?: "accent" | "spark" | "streak";
   size?: "sm" | "default";
   trackColor?: "surface-800" | "surface-900";
   className?: string;
 }
 
 const colorMap: Record<NonNullable<ProgressBarProps["color"]>, string> = {
-  dopamine: "bg-dopamine-400",
+  accent: "bg-accent-400",
   spark: "bg-spark-400",
   streak: "bg-streak-400",
 };
@@ -26,7 +26,7 @@ const trackColorMap: Record<
 export default function ProgressBar({
   value,
   label,
-  color = "dopamine",
+  color = "accent",
   size = "default",
   trackColor = "surface-800",
   className = "",

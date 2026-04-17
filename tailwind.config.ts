@@ -8,21 +8,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Noto Sans KR"', "system-ui", "sans-serif"],
-        mono: ['"JetBrains Mono"', "monospace"],
+        sans: ['"Geist"', '"Noto Sans KR"', "system-ui", "sans-serif"],
+        mono: ['"Geist Mono"', '"JetBrains Mono"', "monospace"],
       },
       colors: {
-        dopamine: {
-          50: "#fdf4ff",
-          100: "#fae8ff",
-          200: "#f5d0fe",
-          300: "#f0abfc",
-          400: "#e879f9",
-          500: "#d946ef",
-          600: "#c026d3",
-          700: "#a21caf",
-          800: "#86198f",
-          900: "#701a75",
+        accent: {
+          50: "#f0fdff",
+          100: "#e0faff",
+          200: "#c0f0fb",
+          300: "#a8e8f5",
+          400: "#c0f0fb",
+          500: "#a8e8f5",
+          600: "#7dd4e8",
+          700: "#5cb8d4",
+          800: "#3a9cbd",
+          900: "#2a7d9e",
+          950: "#1a5e7f",
+          hover: "#ffea00",
+          glow: "rgba(192, 240, 251, 0.3)",
         },
         spark: {
           50: "#fff7ed",
@@ -40,12 +43,17 @@ const config: Config = {
           600: "#16a34a",
         },
         surface: {
-          50: "#f8fafc",
-          100: "#f1f5f9",
-          200: "#e2e8f0",
-          800: "#1e293b",
-          900: "#0f172a",
-          950: "#020617",
+          50: "#fafafa",
+          100: "#f4f4f5",
+          200: "#e4e4e7",
+          300: "#d4d4d8",
+          400: "#a1a1aa",
+          500: "#71717a",
+          600: "#3f3f46",
+          700: "#27272a",
+          800: "#18181b",
+          900: "#111113",
+          950: "#0a0a0b",
         },
         reward: {
           400: "#fbbf24",
@@ -62,26 +70,8 @@ const config: Config = {
           500: "#3b82f6",
           600: "#2563eb",
         },
-        "accent-teal": {
-          400: "#2dd4bf",
-          500: "#14b8a6",
-          600: "#0d9488",
-        },
-        "accent-pink": {
-          400: "#f472b6",
-          500: "#ec4899",
-          600: "#db2777",
-        },
-        "accent-purple": {
-          400: "#c084fc",
-          500: "#a855f7",
-          600: "#9333ea",
-        },
-        terminal: {
-          red: "rgb(239 68 68 / 0.8)",
-          yellow: "rgb(234 179 8 / 0.8)",
-          green: "rgb(34 197 94 / 0.8)",
-        },
+        foreground: "#fafafa",
+        muted: "#71717a",
       },
       keyframes: {
         float: {

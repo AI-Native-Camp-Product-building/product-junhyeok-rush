@@ -11,6 +11,7 @@ import {
   ScienceSection,
   AdhdPrinciplesSection,
   HowToStartSection,
+  ApiSection,
   CtaSection,
   Footer,
 } from "@/components/landing";
@@ -48,6 +49,7 @@ export default function HomePage() {
       <ScienceSection />
       <AdhdPrinciplesSection />
       <HowToStartSection />
+      <ApiSection />
       <CtaSection />
       <Footer />
     </>

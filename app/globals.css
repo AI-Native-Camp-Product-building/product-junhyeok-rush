@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-noto-sans-kr), "Noto Sans KR", system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  --font-sans: var(--font-geist), 'Geist', var(--font-noto-sans-kr), "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 
-  /* dopamine (purple/fuchsia) */
-  --color-dopamine-50: #fdf4ff;
-  --color-dopamine-100: #fae8ff;
-  --color-dopamine-200: #f5d0fe;
-  --color-dopamine-300: #f0abfc;
-  --color-dopamine-400: #e879f9;
-  --color-dopamine-500: #d946ef;
-  --color-dopamine-600: #c026d3;
-  --color-dopamine-700: #a21caf;
-  --color-dopamine-800: #86198f;
-  --color-dopamine-900: #701a75;
+  /* accent (arctic blue — Camp design system) */
+  --color-accent-50: #f0fdff;
+  --color-accent-100: #e0faff;
+  --color-accent-200: #c0f0fb;
+  --color-accent-300: #a8e8f5;
+  --color-accent-400: #c0f0fb;
+  --color-accent-500: #a8e8f5;
+  --color-accent-600: #7dd4e8;
+  --color-accent-700: #5cb8d4;
+  --color-accent-800: #3a9cbd;
+  --color-accent-900: #2a7d9e;
+  --color-accent-950: #1a5e7f;
+  --color-accent-hover: #ffea00;
+  --color-accent-glow: rgba(192, 240, 251, 0.3);
 
   /* spark (orange) */
   --color-spark-50: #fff7ed;
@@ -31,13 +34,18 @@
   --color-streak-500: #22c55e;
   --color-streak-600: #16a34a;
 
-  /* surface (slate/dark) */
-  --color-surface-50: #f8fafc;
-  --color-surface-100: #f1f5f9;
-  --color-surface-200: #e2e8f0;
-  --color-surface-800: #1e293b;
-  --color-surface-900: #0f172a;
-  --color-surface-950: #020617;
+  /* surface (zinc/dark — Camp design system) */
+  --color-surface-50: #fafafa;
+  --color-surface-100: #f4f4f5;
+  --color-surface-200: #e4e4e7;
+  --color-surface-300: #d4d4d8;
+  --color-surface-400: #a1a1aa;
+  --color-surface-500: #71717a;
+  --color-surface-600: #3f3f46;
+  --color-surface-700: #27272a;
+  --color-surface-800: #18181b;
+  --color-surface-900: #111113;
+  --color-surface-950: #0a0a0b;
 
   /* reward (amber) */
   --color-reward-400: #fbbf24;
@@ -54,25 +62,9 @@
   --color-code-500: #3b82f6;
   --color-code-600: #2563eb;
 
-  /* accent-teal */
-  --color-accent-teal-400: #2dd4bf;
-  --color-accent-teal-500: #14b8a6;
-  --color-accent-teal-600: #0d9488;
-
-  /* accent-pink */
-  --color-accent-pink-400: #f472b6;
-  --color-accent-pink-500: #ec4899;
-  --color-accent-pink-600: #db2777;
-
-  /* accent-purple */
-  --color-accent-purple-400: #c084fc;
-  --color-accent-purple-500: #a855f7;
-  --color-accent-purple-600: #9333ea;
-
-  /* terminal (macOS traffic light dots) */
-  --color-terminal-red: rgb(239 68 68 / 0.8);
-  --color-terminal-yellow: rgb(234 179 8 / 0.8);
-  --color-terminal-green: rgb(34 197 94 / 0.8);
+  /* text (Camp foreground/muted) */
+  --color-foreground: #fafafa;
+  --color-muted: #71717a;
 
   /* animations */
   --animate-float: float 6s ease-in-out infinite;
@@ -149,7 +141,7 @@
 }
 .badge-burst {
   animation: badgeBurst 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  filter: drop-shadow(0 0 24px #e879f9) drop-shadow(0 0 48px #d946ef88);
+  filter: drop-shadow(0 0 24px var(--color-accent-400)) drop-shadow(0 0 48px rgba(192, 240, 251, 0.53));
 }
 
 @keyframes fireFall {
@@ -230,7 +222,7 @@
   background: linear-gradient(
     105deg,
     transparent 40%,
-    rgba(232, 121, 249, 0.18) 50%,
+    rgba(192, 240, 251, 0.18) 50%,
     transparent 60%
   );
   background-size: 200% 100%;
@@ -262,37 +254,37 @@
   transform: translateY(0);
 }
 .bezel-card {
-  background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
-  border: 1px solid rgba(148, 163, 184, 0.08);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
+  background: var(--color-surface-800);
+  border: 1px solid var(--color-surface-700);
+  border-radius: 12px;
 }
 .bezel-card-inner {
-  background: linear-gradient(145deg, rgba(15, 23, 42, 0.5), rgba(2, 6, 23, 0.7));
-  border: 1px solid rgba(148, 163, 184, 0.04);
+  background: var(--color-surface-900);
+  border: 1px solid var(--color-surface-700);
   border-radius: 12px;
 }
 .terminal-window {
-  background: #0c0e14;
-  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: var(--color-surface-950);
+  border: 1px solid var(--color-surface-700);
   border-radius: 12px;
   overflow: hidden;
 }
 .terminal-header {
-  background: rgba(168, 85, 247, 0.06);
-  border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+  background: var(--color-surface-900);
+  border-bottom: 1px solid var(--color-surface-700);
   padding: 12px 16px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.terminal-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.terminal-prefix {
+  font-family: var(--font-mono);
+  color: var(--color-accent-400);
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 .code-block {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.6;
 }
@@ -306,7 +298,7 @@
   top: 50%;
   width: 24px;
   height: 2px;
-  background: linear-gradient(90deg, rgba(168, 85, 247, 0.4), rgba(168, 85, 247, 0.1));
+  background: linear-gradient(90deg, rgba(192, 240, 251, 0.4), rgba(192, 240, 251, 0.1));
 }
 .phase-connector:last-child::after {
   display: none;
@@ -315,12 +307,12 @@
   animation: flicker 0.8s ease-in-out infinite;
 }
 .topic-num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(192, 240, 251, 0.2), transparent);
 }
 .pulse-ring::before {
   content: '';
@@ -331,10 +323,10 @@
   animation: pulseRing 2s ease-out infinite;
 }
 
-/* Dark theme defaults */
+/* Dark theme defaults (Camp) */
 :root {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: #0a0a0b;
+  --foreground: #fafafa;
 }
 
 body {
@@ -343,9 +335,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Glow effects */
-.glow-purple {
-  box-shadow: 0 0 60px rgba(168, 85, 247, 0.15), 0 0 120px rgba(168, 85, 247, 0.05);
+/* Glow effects (Camp arctic) */
+.glow-accent {
+  box-shadow: 0 0 60px rgba(192, 240, 251, 0.15), 0 0 120px rgba(192, 240, 251, 0.05);
 }
 
 .glow-orange {
@@ -356,28 +348,38 @@ body {
   box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);
 }
 
-/* Card hover effect */
+/* Card hover effect (Camp) */
 .card-hover {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
 }
 
 .card-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(168, 85, 247, 0.12), 0 0 0 1px rgba(168, 85, 247, 0.1);
+  box-shadow: 0 20px 60px rgba(192, 240, 251, 0.12), 0 0 0 1px rgba(192, 240, 251, 0.1);
 }
 
-/* Gradient text */
+/* Gradient text (Camp arctic) */
 .gradient-text {
-  background: linear-gradient(135deg, #e879f9 0%, #fb923c 50%, #4ade80 100%);
+  background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-hover) 50%, var(--color-accent-300) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Hero gradient mesh */
+/* Hero gradient mesh (Camp) */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(168, 85, 247, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 50% at 50% 80%, rgba(34, 197, 94, 0.06) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(192, 240, 251, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(255, 234, 0, 0.03) 0%, transparent 70%);
+}
+
+/* Nav frosted glass (Camp) */
+.nav-frosted {
+  background: rgba(10, 10, 11, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+/* CTA glow (Camp) */
+.cta-glow {
+  box-shadow: 0 4px 20px var(--color-accent-glow);
 }

@@ -1,45 +1,102 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import type { DailyFeedItem, DailyFeedResponse } from "@/lib/daily-feed-types";
+
+interface HeroItem {
+  category: string;
+  source: string;
+  title: string;
+}
+
+const FALLBACK_ITEMS: HeroItem[] = [
+  { category: "workflow", source: "@danshipper", title: "Claude Code Agent SDK로 멀티 에이전트 파이프라인 구축하기" },
+  { category: "update", source: "@koylanai", title: "Claude Code 4.6 — 1M 컨텍스트 윈도우 실전 활용법" },
+  { category: "methodology", source: "까칠한AI", title: "CLAUDE.md 작성 전략 — 에이전트 성능을 2배로" },
+];
+
+function extractSource(item: DailyFeedItem): string {
+  if (item.sourceType === "x" && item.sourceUrl) {
+    const match = item.sourceUrl.match(/x\.com\/([^/]+)/);
+    if (match) return `@${match[1]}`;
+  }
+  return item.sourceName;
+}
 
 export function HeroSection() {
-  return (
-    <section className="hero-mesh relative min-h-screen flex items-center pt-16">
-      {/* Decorative orbs */}
-      <div className="absolute top-32 left-[10%] w-72 h-72 bg-dopamine-600/10 rounded-full blur-[100px] animate-float" />
-      <div className="absolute bottom-32 right-[15%] w-56 h-56 bg-spark-500/8 rounded-full blur-[80px] animate-float-mid" />
+  const [heroItems, setHeroItems] = useState<HeroItem[]>(FALLBACK_ITEMS);
+  const [itemCount, setItemCount] = useState(3);
 
-      <div className="max-w-6xl mx-auto px-6 py-20 md:py-0">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          {/* Left: Text */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-dopamine-600/10 border border-dopamine-500/20 text-dopamine-300 text-xs font-medium tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-dopamine-400 animate-pulse" />
-              Claude Code Plugin
+  const todayKst = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+
+  useEffect(() => {
+    fetch("/api/daily-feed")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: DailyFeedResponse | null) => {
+        if (!data?.items?.length) return;
+        setItemCount(data.items.length);
+        setHeroItems(
+          data.items.slice(0, 3).map((item) => ({
+            category: item.category,
+            source: extractSource(item),
+            title: item.title,
+          }))
+        );
+      })
+      .catch(() => {});
+  }, []);
+
+  return (
+    <section className="relative min-h-[80vh] flex items-center">
+      {/* Subtle gradient mesh — Camp style, barely visible */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(80% 50% at 50% -10%, rgba(192,240,251,0.04), transparent), radial-gradient(60% 40% at 100% 100%, rgba(255,234,0,0.02), transparent)",
+        }}
+      />
+
+      <div className="max-w-5xl mx-auto px-6 w-full">
+        <div className="grid lg:grid-cols-[1fr_420px] gap-16 items-center">
+          {/* Left: Copy */}
+          <div className="space-y-7">
+            <div className="flex items-center gap-2 text-surface-500 text-sm font-mono">
+              <span className="text-accent-400">&gt;_</span>
+              <span>daily-feed</span>
+              <span className="inline-block w-[7px] h-[18px] bg-accent-400/70 animate-pulse ml-0.5" />
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight">
-              <span className="text-white">ADHD 개발자의</span>
+            <h1 className="text-[2.8rem] sm:text-[3.4rem] font-bold leading-[1.12] tracking-[-1.2px] text-surface-50">
+              어제의 나는
               <br />
-              <span className="gradient-text">도파민 학습법</span>
+              오늘의 메타를
+              <br />
+              <span className="text-accent-400">모른다</span>
             </h1>
 
-            <p className="text-lg text-white/50 leading-relaxed max-w-lg">
-              30분 스프린트로 Claude Code를 체계적으로 마스터하세요.
+            <p className="text-surface-400 text-lg leading-relaxed max-w-md">
+              Claude Code 생태계는 매일 변합니다.
               <br />
-              <span className="text-white/70">3분마다 보상</span>,{" "}
-              <span className="text-white/70">7단계 도파민 설계</span>,{" "}
-              <span className="text-white/70">스트릭 시스템</span>으로
+              11개 채널에서 수집된 트렌드를
               <br />
-              집중이 어려운 날에도 학습이 계속됩니다.
+              <span className="text-surface-200">30분 안에 따라잡으세요.</span>
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-4 pt-2">
               <Link
-                href="/onboarding"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-dopamine-600 to-dopamine-500 text-white font-semibold text-sm shadow-lg shadow-dopamine-600/25 hover:shadow-dopamine-600/40 hover:scale-[1.02] transition-all duration-300"
+                href="/daily-feed"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-accent-400 text-surface-950 text-sm font-semibold hover:bg-accent-hover transition-colors duration-150"
               >
-                학습 시작하기
+                오늘의 피드 보기
                 <svg
-                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                  className="w-4 h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -52,101 +109,67 @@ export function HeroSection() {
                   />
                 </svg>
               </Link>
-              <Link
-                href="/onboarding/skip-quiz"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-white/10 text-white/60 text-sm font-medium hover:border-white/20 hover:text-white/80 transition-all"
+              <a
+                href="https://ainativecamp-production.up.railway.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-surface-500 hover:text-surface-300 transition-colors"
               >
-                이미 알고 있나요?
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="flex items-center gap-8 pt-4">
-              <div>
-                <div className="text-2xl font-bold text-white">
-                  30<span className="text-dopamine-400 text-lg">min</span>
-                </div>
-                <div className="text-xs text-white/40 mt-0.5">스프린트</div>
-              </div>
-              <div className="w-px h-10 bg-white/10" />
-              <div>
-                <div className="text-2xl font-bold text-white">
-                  7<span className="text-spark-400 text-lg">단계</span>
-                </div>
-                <div className="text-xs text-white/40 mt-0.5">
-                  도파민 설계
-                </div>
-              </div>
-              <div className="w-px h-10 bg-white/10" />
-              <div>
-                <div className="text-2xl font-bold text-white">
-                  10<span className="text-streak-400 text-lg">토픽</span>
-                </div>
-                <div className="text-xs text-white/40 mt-0.5">
-                  핵심 커리큘럼
-                </div>
-              </div>
+                AI Native Camp에서 시작 &rarr;
+              </a>
             </div>
           </div>
 
-          {/* Right: Terminal mockup */}
-          <div className="relative animate-float">
-            <div className="terminal-window glow-purple">
-              <div className="terminal-header">
-                <div className="terminal-dot bg-terminal-red" />
-                <div className="terminal-dot bg-terminal-yellow" />
-                <div className="terminal-dot bg-terminal-green" />
-                <span className="ml-2 text-xs text-white/30 font-mono">
-                  claude — sprint
-                </span>
-              </div>
-              <div className="p-5 code-block space-y-3">
-                <div className="text-dopamine-400">
-                  &gt; /sprint agentic-loop
-                </div>
-                <div className="text-white/60 mt-3">
-                  <span className="text-spark-400 font-semibold">
-                    ADHD Sprint
-                  </span>{" "}
-                  <span className="text-white/30">v1.0</span>
-                </div>
-                <div className="text-white/40 text-xs mt-2">
-                  토픽: Agentic Loop
-                </div>
-                <div className="mt-3">
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-streak-400">Phase 1/7</span>
-                    <span className="text-white/30">HOOK</span>
-                    <span className="text-white/20">2분</span>
-                  </div>
-                  <div className="mt-1.5 h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-dopamine-500 to-spark-500 rounded-full animate-progress-fill w-[43%]"
-                    />
-                  </div>
-                  <div className="flex justify-between text-[10px] text-white/20 mt-1">
-                    <span>{"\u25A0\u25A0\u25A0\u25A1\u25A1\u25A1\u25A1"}</span>
-                    <span>3/7</span>
-                  </div>
-                </div>
-                <div className="mt-3 p-3 rounded-lg bg-dopamine-600/10 border border-dopamine-500/10">
-                  <div className="text-[11px] text-dopamine-300/80">
-                    안 써본 명령어를 하나 실행해보세요:
-                  </div>
-                  <div className="text-dopamine-300 mt-1.5">
-                    $ claude --resume
-                  </div>
-                </div>
-                <div className="mt-2 text-xs text-white/20">
-                  <span className="text-streak-400">{"\uD83D\uDD25"}</span>{" "}
-                  스트릭: 5일 연속
-                </div>
-              </div>
+          {/* Right: Terminal card */}
+          <div className="rounded-xl border border-surface-700 bg-surface-800 overflow-hidden">
+            {/* Terminal header */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-surface-700">
+              <span className="text-accent-400 font-mono text-sm">&gt;_</span>
+              <span className="text-surface-500 font-mono text-xs">
+                nudget-feed — today
+              </span>
             </div>
 
-            {/* Floating badge */}
-            <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full bg-streak-500/20 border border-streak-400/30 text-streak-400 text-xs font-semibold animate-float-fast">
-              +50 XP
+            {/* Terminal body */}
+            <div className="p-5 font-mono text-[13px] leading-relaxed space-y-4">
+              {/* Command */}
+              <div>
+                <span className="text-surface-500">$</span>{" "}
+                <span className="text-accent-400">fetch</span>{" "}
+                <span className="text-surface-300">--today --filter claude-code</span>
+              </div>
+
+              {/* Results — live from /api/daily-feed, fallback to static */}
+              <div className="space-y-3 pt-1">
+                <div className="text-surface-500 text-xs uppercase tracking-wider">
+                  {itemCount} items found · {todayKst}
+                </div>
+
+                {heroItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="p-3 rounded-lg border border-surface-700 bg-surface-900/50 space-y-1.5"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-400/10 text-accent-400 font-semibold">
+                        {item.category}
+                      </span>
+                      <span className="text-surface-500 text-[11px]">
+                        {item.source}
+                      </span>
+                    </div>
+                    <div className="text-surface-200 text-xs">{item.title}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Quiz prompt */}
+              <div className="pt-2 border-t border-surface-700/50">
+                <span className="text-surface-500">$</span>{" "}
+                <span className="text-accent-400">quiz</span>{" "}
+                <span className="text-surface-400">--start</span>
+                <span className="inline-block w-[7px] h-[14px] bg-accent-400/50 animate-pulse ml-1" />
+              </div>
             </div>
           </div>
         </div>

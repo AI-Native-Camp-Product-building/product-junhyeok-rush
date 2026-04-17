@@ -37,7 +37,7 @@ function highlight(line: string): string {
   // Strings (double-quoted, single-quoted, template literals)
   escaped = escaped.replace(
     /(`[^`]*`|"[^"]*"|'[^']*')/g,
-    '<span class="text-dopamine-400">$1</span>'
+    '<span class="text-accent-400">$1</span>'
   );
 
   // Keywords (only when not already inside a span)

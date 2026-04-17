@@ -10,9 +10,9 @@ interface CelebrationAnimationProps {
 }
 
 const CONFETTI_COLORS = [
-  "var(--color-dopamine-400)",
-  "var(--color-dopamine-500)",
-  "var(--color-dopamine-300)",
+  "var(--color-accent-400)",
+  "var(--color-accent-500)",
+  "var(--color-accent-300)",
   "var(--color-spark-400)",
   "var(--color-spark-500)",
   "var(--color-streak-400)",

@@ -1,169 +1,77 @@
 export function CurriculumSection() {
+  const channels = {
+    X: [
+      { handle: "@danshipper", label: "AI 비즈니스 전략" },
+      { handle: "@koylanai", label: "Claude Code 실전" },
+      { handle: "@vicnaum", label: "에이전트 워크플로우" },
+      { handle: "@adocomplete", label: "AI 코딩 패턴" },
+      { handle: "@trq212", label: "프롬프트 엔지니어링" },
+      { handle: "@ryancarson", label: "AI 제품 개발" },
+    ],
+    LinkedIn: [
+      { handle: "황현태", label: "AI 트렌드 분석" },
+      { handle: "Jeongmin Lee", label: "개발자 생산성" },
+      { handle: "HoYeon Lee", label: "AI 에이전트 설계" },
+      { handle: "정구봉", label: "AI 실무 활용" },
+    ],
+    YouTube: [{ handle: "까칠한AI", label: "Claude Code 튜토리얼" }],
+  };
+
   return (
-    <section id="curriculum" className="relative py-28 md:py-36">
-      <div className="section-divider" />
-      <div className="max-w-6xl mx-auto px-6 pt-20 md:pt-28">
-        <div className="reveal text-center space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-dopamine-600/10 border border-dopamine-500/20 text-dopamine-300 text-xs font-medium">
-            Core Curriculum
+    <section id="curriculum" className="py-14 md:py-16">
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Header */}
+        <div className="space-y-3 mb-14">
+          <div className="flex items-center gap-2 text-surface-500 text-sm font-mono">
+            <span className="text-accent-400">&gt;_</span>
+            <span>content-sources</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            10개 핵심 토픽
+          <h2 className="text-2xl sm:text-3xl font-bold text-surface-50 tracking-tight">
+            11개 채널, 매일 스캔
           </h2>
-          <p className="text-white/40 max-w-lg mx-auto">
-            Claude Code의 핵심을 순서대로 마스터합니다. 각 토픽은 하나의
-            스프린트로 완성됩니다.
+          <p className="text-surface-400 max-w-md">
+            Claude Code 생태계에서 가장 밀도 높은 소스만 추적합니다.
           </p>
         </div>
 
-        <div className="reveal grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
-          {/* Topic 1 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-dopamine-600/15 border border-dopamine-500/15 flex items-center justify-center text-dopamine-400 text-xs font-bold">
-              01
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Agentic Loop
+        {/* Channel groups */}
+        <div className="space-y-8">
+          {Object.entries(channels).map(([platform, list]) => (
+            <div key={platform}>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-xs font-mono text-accent-400 tracking-wider uppercase">
+                  {platform}
+                </span>
+                <span className="text-surface-700 text-xs font-mono">
+                  {list.length}
+                </span>
+                <div className="flex-1 h-px bg-surface-800" />
               </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                Read &rarr; Plan &rarr; Act &rarr; Verify 자율 사이클
-              </div>
-            </div>
-          </div>
-          {/* Topic 2 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-dopamine-600/15 border border-dopamine-500/15 flex items-center justify-center text-dopamine-400 text-xs font-bold">
-              02
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                CLAUDE.md
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                3계층 프로젝트 지시 시스템
-              </div>
-            </div>
-          </div>
-          {/* Topic 3 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-spark-600/15 border border-spark-500/15 flex items-center justify-center text-spark-400 text-xs font-bold">
-              03
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Tool Use
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                Read, Write, Edit, Bash, Glob, Grep
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {list.map((ch) => (
+                  <div
+                    key={ch.handle}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-surface-700 bg-surface-800"
+                  >
+                    <span className="text-sm text-surface-200 font-medium">
+                      {ch.handle}
+                    </span>
+                    <span className="text-xs text-surface-500 ml-auto">
+                      {ch.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-          {/* Topic 4 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-spark-600/15 border border-spark-500/15 flex items-center justify-center text-spark-400 text-xs font-bold">
-              04
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Context Window
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                /compact, /clear로 토큰 관리
-              </div>
-            </div>
-          </div>
-          {/* Topic 5 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-code-600/15 border border-code-500/15 flex items-center justify-center text-code-400 text-xs font-bold">
-              05
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Slash Commands
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                /init, /review, /pr 워크플로우
-              </div>
-            </div>
-          </div>
-          {/* Topic 6 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-code-600/15 border border-code-500/15 flex items-center justify-center text-code-400 text-xs font-bold">
-              06
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Permissions &amp; Safety
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                3단계 권한 시스템, Shift+Tab
-              </div>
-            </div>
-          </div>
-          {/* Topic 7 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-accent-teal-600/15 border border-accent-teal-500/15 flex items-center justify-center text-accent-teal-400 text-xs font-bold">
-              07
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Hooks
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                PreToolUse, PostToolUse 자동화
-              </div>
-            </div>
-          </div>
-          {/* Topic 8 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-accent-teal-600/15 border border-accent-teal-500/15 flex items-center justify-center text-accent-teal-400 text-xs font-bold">
-              08
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Skills &amp; Plugins
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                커스텀 명령어와 확장 패키지
-              </div>
-            </div>
-          </div>
-          {/* Topic 9 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-streak-600/15 border border-streak-400/15 flex items-center justify-center text-streak-400 text-xs font-bold">
-              09
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                MCP Servers
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                외부 도구 연결 프로토콜
-              </div>
-            </div>
-          </div>
-          {/* Topic 10 */}
-          <div className="bezel-card p-4 flex items-center gap-4 card-hover group">
-            <div className="topic-num flex-shrink-0 w-9 h-9 rounded-lg bg-streak-600/15 border border-streak-400/15 flex items-center justify-center text-streak-400 text-xs font-bold">
-              10
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                Multi-Agent
-              </div>
-              <div className="text-[11px] text-white/30 mt-0.5 truncate">
-                서브에이전트 병렬 처리
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Extension note */}
-        <div className="reveal mt-8 text-center">
-          <p className="text-xs text-white/30">
-            <code className="text-dopamine-400/60">/sprint update</code>로 새
-            토픽이 자동 추가됩니다
+        {/* Footer note */}
+        <div className="mt-10 pt-6 border-t border-surface-800">
+          <p className="text-xs text-surface-600 font-mono">
+            Nudget API가 매일 자동으로 새 콘텐츠를 수집합니다.
+            수동 구독이 필요 없습니다.
           </p>
         </div>
       </div>

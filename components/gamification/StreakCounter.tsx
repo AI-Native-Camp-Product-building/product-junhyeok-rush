@@ -19,7 +19,7 @@ export default function StreakCounter({
       <div
         className={[
           "text-6xl font-bold tabular-nums transition-colors duration-300",
-          isActive ? "text-dopamine-400" : "text-surface-800",
+          isActive ? "text-accent-400" : "text-surface-800",
           isActive ? "animate-streak-pulse" : "",
           hasGlow ? "streak-glow" : "",
         ]

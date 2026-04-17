@@ -7,5 +7,6 @@ export { CurriculumSection } from "./CurriculumSection";
 export { ScienceSection } from "./ScienceSection";
 export { AdhdPrinciplesSection } from "./AdhdPrinciplesSection";
 export { HowToStartSection } from "./HowToStartSection";
+export { ApiSection } from "./ApiSection";
 export { CtaSection } from "./CtaSection";
 export { Footer } from "./Footer";

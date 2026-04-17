@@ -56,10 +56,10 @@ export default function ThumbsReaction({
         className={`flex items-center justify-center w-8 h-8 rounded-lg border text-base transition-colors
           ${
             upSelected
-              ? "border-dopamine-400 bg-dopamine-400/20 text-dopamine-400"
+              ? "border-accent-400 bg-accent-400/20 text-accent-400"
               : reacted
                 ? "border-surface-700 bg-surface-800 text-surface-600 cursor-default"
-                : "border-surface-700 bg-surface-800 text-surface-400 hover:border-dopamine-400 hover:text-dopamine-400 cursor-pointer"
+                : "border-surface-700 bg-surface-800 text-surface-400 hover:border-accent-400 hover:text-accent-400 cursor-pointer"
           }`}
       >
         👍

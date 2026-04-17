@@ -40,7 +40,7 @@ export default function Timer({ initialSeconds, onComplete, className = "" }: Ti
   return (
     <div className={`flex flex-col items-center gap-2 ${className}`}>
       <span
-        className={`font-mono text-3xl font-medium text-dopamine-400 tabular-nums ${nearEnd ? "animate-pulse" : ""}`}
+        className={`font-mono text-3xl font-medium text-accent-400 tabular-nums ${nearEnd ? "animate-pulse" : ""}`}
         aria-live="polite"
         aria-label={`남은 시간 ${minutes}분 ${seconds}초`}
       >
